@@ -40,16 +40,23 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $product = Product::find($id);
+        $product->update($request->all());
+        return $product;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        return Product::destroy($id);
+    }
+
+    public function search($name)
+    {
+        return Product::where('name', 'like', '%' . $name . '%')->get();
     }
 }
